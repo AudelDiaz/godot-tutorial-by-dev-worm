@@ -5,9 +5,6 @@ var player_chase:bool = false
 var player = null
 @onready var animation = $AnimatedSprite2D
 
-func _ready():
-	animation.play("idle")
-
 func _physics_process(_delta):
 	if player_chase:
 		position += (player.position - position)/SPEED
@@ -20,11 +17,13 @@ func _physics_process(_delta):
 		animation.play("idle")
 
 func _on_detection_area_body_entered(body):
-	player = body
-	player_chase = true
+	if body != self:
+		player = body
+		player_chase = true
 	
 
 func _on_detection_area_body_exited(_body):
-	player = null
-	player_chase = false
+	if _body != self:
+		player = null
+		player_chase = false
 	

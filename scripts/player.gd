@@ -4,9 +4,10 @@ const SPEED = 100
 const IDLE:bool = false
 const WALKING:bool = true
 var current_direction = null
+@onready var animation = $AnimatedSprite2D
 
 func _ready():
-	$AnimatedSprite2D.play("front_idle")
+	animation.play("front_idle")
 
 func _physics_process(_delta):
 	player_movement(_delta)
@@ -31,32 +32,30 @@ func player_movement(_delta):
 	
 func play_animation(is_moving):
 	var direction = current_direction
-	var animation = $AnimatedSprite2D
-	
-	if direction == "right":
-		animation.flip_h = false
-		if is_moving:
-			animation.play("side_walk")
-		else:
-			animation.play("side_idle")
-	elif direction == "left":
-		animation.flip_h = true
-		if is_moving:
-			animation.play("side_walk")
-		else:
-			animation.play("side_idle")
-	elif direction == "down":
-		animation.flip_h = false
-		if is_moving:
-			animation.play("front_walk")
-		else:
-			animation.play("front_idle")
-	elif direction == "up":
-		animation.flip_h = false
-		if is_moving:
-			animation.play("back_walk")
-		else:
-			animation.play("back_idle")
-	if Input.is_action_pressed("ui_accept"):
-		animation.play("side_attack")
-		get_tree().create_timer(.5)
+	match direction:
+		"right":
+			animation.flip_h = false
+			if is_moving:
+				animation.play("side_walk")
+			else:
+				animation.play("side_idle")
+		"left":
+			animation.flip_h = true
+			if is_moving:
+				animation.play("side_walk")
+			else:
+				animation.play("side_idle")
+		"down":
+			animation.flip_h = false
+			if is_moving:
+				animation.play("front_walk")
+			else:
+				animation.play("front_idle")
+		"up":
+			animation.flip_h = false
+			if is_moving:
+				animation.play("back_walk")
+			else:
+				animation.play("back_idle")
+		"_":
+			pass
