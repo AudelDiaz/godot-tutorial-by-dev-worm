@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name EnemyCharacter
+
 const SPEED:int = 80
 var player_chase:bool = false
 var player = null
@@ -17,13 +19,13 @@ func _physics_process(_delta):
 		animation.play("idle")
 
 func _on_detection_area_body_entered(body):
-	if body != self:
+	if "enemy" not in body.name and body != self:
 		player = body
 		player_chase = true
 	
 
-func _on_detection_area_body_exited(_body):
-	if _body != self:
+func _on_detection_area_body_exited(body):
+	if "enemy" not in body.name and body != self:
 		player = null
 		player_chase = false
 	

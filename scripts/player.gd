@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name PlayerCharacter
+
 const SPEED = 100
 const IDLE:bool = false
 const WALKING:bool = true
